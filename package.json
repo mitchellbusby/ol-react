@@ -1,5 +1,5 @@
 {
-  "name": "ol-react",
+  "name": "@mitchelljbusby/ol-react",
   "version": "0.1.0",
   "description": "React interface for openlayers",
   "main": "lib/index.js",
