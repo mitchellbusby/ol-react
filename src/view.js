@@ -25,30 +25,32 @@ export default class View extends OLComponent {
     }
   }
 
-  updateFromProps_(nextProps) {
-    if (typeof nextProps.center !== 'undefined') {
-      this.view.setCenter(nextProps.center);
-    }
-    if (typeof nextProps.rotation !== 'undefined') {
-      this.view.setRotation(nextProps.rotation);
-    }
+  updateFromProps_(nextProps, isMounting) {
+    if (isMounting) {
+      if (typeof nextProps.center !== 'undefined') {
+        this.view.setCenter(nextProps.center);
+      }
+      if (typeof nextProps.rotation !== 'undefined') {
+        this.view.setRotation(nextProps.rotation);
+      }
 
-    if (typeof nextProps.resolution !== 'undefined') {
-      this.view.setResolution(nextProps.resolution);
-    } else if (typeof nextProps.zoom !== 'undefined') {
-      this.view.setZoom(nextProps.zoom);
+      if (typeof nextProps.resolution !== 'undefined') {
+        this.view.setResolution(nextProps.resolution);
+      } else if (typeof nextProps.zoom !== 'undefined') {
+        this.view.setZoom(nextProps.zoom);
+      }
     }
   }
 
   componentDidMount() {
     this.context.map.setView(this.view);
-    this.updateFromProps_(this.props);
+    this.updateFromProps_(this.props, true);
 
     this.context.map.on("moveend", this.onMoveEnd, this);
   }
 
   componentWillReceiveProps(props) {
-    this.updateFromProps_(props);
+    this.updateFromProps_(props, false);
   }
 
   animate(options) {
